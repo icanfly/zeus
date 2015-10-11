@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:task="http://www.springframework.org/schema/task"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.1.xsd">
+	<task:annotation-driven />
+	<task:scheduler id="scheduler" pool-size="8" />
+	<!--<task:scheduled-tasks scheduler="scheduler">
+		<task:scheduled ref="workTmpDirCleaner" method="doClean" cron="0 0 0/12 * * *" />
+		<task:scheduled ref="networkDeviceService" method="backupTask" cron="0 0 2 * * *" />
+		<task:scheduled ref="deployStatisticsTask" method="doExecute" cron="0 0 12 ? * FRI" />
+		<task:scheduled ref="subjectService" method="lockUserTask" cron="0 0 4 * * *" />
+	</task:scheduled-tasks>-->
+</beans>

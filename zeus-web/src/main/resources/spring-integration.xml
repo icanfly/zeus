@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.1.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd ">
+
+    <import resource="classpath*:/spring/spring-datasource.xml"/>
+    <import resource="classpath*:/spring/spring-services.xml"/>
+    <import resource="classpath*:/spring/spring-context.xml"/>
+    <import resource="classpath*:/spring/spring-cache.xml"/>
+    <import resource="classpath*:/spring/spring-shiro.xml"/>
+    <import resource="classpath*:/spring/spring-task.xml"/>
+    <import resource="classpath*:/spring/spring-activiti.xml"/>
+    <import resource="classpath*:/spring/spring-jms.xml"/>
+
+    <context:annotation-config/>
+
+    <aop:aspectj-autoproxy/>
+
+    <beans profile="dev">
+        <bean id="placeHolder"
+              class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"
+              p:ignoreResourceNotFound="true" p:systemPropertiesModeName="SYSTEM_PROPERTIES_MODE_OVERRIDE">
+            <property name="locations">
+                <list>
+                    <value>classpath:/profiles/dev.properties</value>
+                    <value>file:#{systemProperties['user.home']}/.zeus/build.properties</value>
+                </list>
+            </property>
+        </bean>
+        <bean id="settings"
+              class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+            <property name="ignoreResourceNotFound" value="true"/>
+            <property name="locations">
+                <list>
+                    <value>classpath:/profiles/dev.properties</value>
+                    <value>file:#{systemProperties['user.home']}/.zeus/build.properties</value>
+                </list>
+            </property>
+        </bean>
+    </beans>
+
+    <beans profile="online">
+        <bean id="placeHolder"
+              class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"
+              p:ignoreResourceNotFound="true" p:systemPropertiesModeName="SYSTEM_PROPERTIES_MODE_OVERRIDE">
+            <property name="locations">
+                <list>
+                    <value>classpath:/profiles/online.properties</value>
+                    <value>file:#{systemProperties['user.home']	}/.zeus/build.properties</value>
+                </list>
+            </property>
+        </bean>
+        <bean id="settings"
+              class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+            <property name="ignoreResourceNotFound" value="true"/>
+            <property name="locations">
+                <list>
+                    <value>classpath:/profiles/online.properties</value>
+                    <value>file:#{systemProperties['user.home']}/.zeus/build.properties</value>
+                </list>
+            </property>
+        </bean>
+    </beans>
+</beans>

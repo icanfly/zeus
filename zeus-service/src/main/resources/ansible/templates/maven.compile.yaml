@@ -1,0 +1,12 @@
+---
+- hosts: vpn
+  remote_user: test
+  tasks:
+  - name: delete /tmp/server-test
+    shell: rm -rf /tmp/server-test
+
+  - name: pull scm
+    subversion: repo=svn://an.example.org/path/to/repo dest=/data/work/compile/${app_name}/checkout
+
+  - name: execute maven goals
+    shell:

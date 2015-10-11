@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zhubajie.devops.dao.mapper.appMapper" >
+  <resultMap id="BaseResultMap" type="com.zhubajie.devops.dao.entity.app" >
+    <id column="app_id" property="appId" jdbcType="BIGINT" />
+    <result column="app_name" property="appName" jdbcType="VARCHAR" />
+    <result column="scm_url" property="scmUrl" jdbcType="VARCHAR" />
+    <result column="scm_type" property="scmType" jdbcType="VARCHAR" />
+    <result column="pkg_name" property="pkgName" jdbcType="VARCHAR" />
+    <result column="compile_style" property="compileStyle" jdbcType="VARCHAR" />
+    <result column="raw_add_time" property="rawAddTime" jdbcType="TIMESTAMP" />
+    <result column="raw_update_time" property="rawUpdateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    app_id, app_name, scm_url, scm_type, pkg_name, compile_style, raw_add_time, raw_update_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.zhubajie.devops.dao.entity.appExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from app
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from app
+    where app_id = #{appId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from app
+    where app_id = #{appId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.zhubajie.devops.dao.entity.appExample" >
+    delete from app
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.zhubajie.devops.dao.entity.app" >
+    insert into app (app_id, app_name, scm_url, 
+      scm_type, pkg_name, compile_style, 
+      raw_add_time, raw_update_time)
+    values (#{appId,jdbcType=BIGINT}, #{appName,jdbcType=VARCHAR}, #{scmUrl,jdbcType=VARCHAR}, 
+      #{scmType,jdbcType=VARCHAR}, #{pkgName,jdbcType=VARCHAR}, #{compileStyle,jdbcType=VARCHAR}, 
+      #{rawAddTime,jdbcType=TIMESTAMP}, #{rawUpdateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zhubajie.devops.dao.entity.app" >
+    insert into app
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="appId != null" >
+        app_id,
+      </if>
+      <if test="appName != null" >
+        app_name,
+      </if>
+      <if test="scmUrl != null" >
+        scm_url,
+      </if>
+      <if test="scmType != null" >
+        scm_type,
+      </if>
+      <if test="pkgName != null" >
+        pkg_name,
+      </if>
+      <if test="compileStyle != null" >
+        compile_style,
+      </if>
+      <if test="rawAddTime != null" >
+        raw_add_time,
+      </if>
+      <if test="rawUpdateTime != null" >
+        raw_update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="appId != null" >
+        #{appId,jdbcType=BIGINT},
+      </if>
+      <if test="appName != null" >
+        #{appName,jdbcType=VARCHAR},
+      </if>
+      <if test="scmUrl != null" >
+        #{scmUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="scmType != null" >
+        #{scmType,jdbcType=VARCHAR},
+      </if>
+      <if test="pkgName != null" >
+        #{pkgName,jdbcType=VARCHAR},
+      </if>
+      <if test="compileStyle != null" >
+        #{compileStyle,jdbcType=VARCHAR},
+      </if>
+      <if test="rawAddTime != null" >
+        #{rawAddTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rawUpdateTime != null" >
+        #{rawUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.zhubajie.devops.dao.entity.appExample" resultType="java.lang.Integer" >
+    select count(*) from app
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update app
+    <set >
+      <if test="record.appId != null" >
+        app_id = #{record.appId,jdbcType=BIGINT},
+      </if>
+      <if test="record.appName != null" >
+        app_name = #{record.appName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.scmUrl != null" >
+        scm_url = #{record.scmUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.scmType != null" >
+        scm_type = #{record.scmType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pkgName != null" >
+        pkg_name = #{record.pkgName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.compileStyle != null" >
+        compile_style = #{record.compileStyle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rawAddTime != null" >
+        raw_add_time = #{record.rawAddTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.rawUpdateTime != null" >
+        raw_update_time = #{record.rawUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update app
+    set app_id = #{record.appId,jdbcType=BIGINT},
+      app_name = #{record.appName,jdbcType=VARCHAR},
+      scm_url = #{record.scmUrl,jdbcType=VARCHAR},
+      scm_type = #{record.scmType,jdbcType=VARCHAR},
+      pkg_name = #{record.pkgName,jdbcType=VARCHAR},
+      compile_style = #{record.compileStyle,jdbcType=VARCHAR},
+      raw_add_time = #{record.rawAddTime,jdbcType=TIMESTAMP},
+      raw_update_time = #{record.rawUpdateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zhubajie.devops.dao.entity.app" >
+    update app
+    <set >
+      <if test="appName != null" >
+        app_name = #{appName,jdbcType=VARCHAR},
+      </if>
+      <if test="scmUrl != null" >
+        scm_url = #{scmUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="scmType != null" >
+        scm_type = #{scmType,jdbcType=VARCHAR},
+      </if>
+      <if test="pkgName != null" >
+        pkg_name = #{pkgName,jdbcType=VARCHAR},
+      </if>
+      <if test="compileStyle != null" >
+        compile_style = #{compileStyle,jdbcType=VARCHAR},
+      </if>
+      <if test="rawAddTime != null" >
+        raw_add_time = #{rawAddTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rawUpdateTime != null" >
+        raw_update_time = #{rawUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where app_id = #{appId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zhubajie.devops.dao.entity.app" >
+    update app
+    set app_name = #{appName,jdbcType=VARCHAR},
+      scm_url = #{scmUrl,jdbcType=VARCHAR},
+      scm_type = #{scmType,jdbcType=VARCHAR},
+      pkg_name = #{pkgName,jdbcType=VARCHAR},
+      compile_style = #{compileStyle,jdbcType=VARCHAR},
+      raw_add_time = #{rawAddTime,jdbcType=TIMESTAMP},
+      raw_update_time = #{rawUpdateTime,jdbcType=TIMESTAMP}
+    where app_id = #{appId,jdbcType=BIGINT}
+  </update>
+</mapper>

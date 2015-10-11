@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ehcache>
+    <diskStore path="java.io.tmpdir"/>
+    <defaultCache maxElementsInMemory="500" eternal="false"
+                  timeToIdleSeconds="600" timeToLiveSeconds="600"
+                  overflowToDisk="true"/>
+
+    <cache name="AD.CONFIG" maxElementsInMemory="500" eternal="false"
+           timeToIdleSeconds="300" timeToLiveSeconds="300"
+           overflowToDisk="true"/>
+
+    <cache name="AD.SUBJECT" maxElementsInMemory="500" eternal="false"
+           timeToIdleSeconds="300" timeToLiveSeconds="300"
+           overflowToDisk="true"/>
+           
+    <cache name="StatusCache" maxElementsInMemory="500" eternal="false"
+       timeToIdleSeconds="300" timeToLiveSeconds="300"
+       overflowToDisk="true"/>
+
+
+</ehcache>
